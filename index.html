@@ -4,23 +4,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./web/styles.css" />
-    <title>Data Viewer</title>
+    <title>Drawing Recognizer</title>
   </head>
   <body>
-    <h1>
-      Data Viewer
-      <span class="infoButton">
+    <div id="header-title">
+      <h1>Drawing Recognizer 
+        <span class="infoButton">
         &#9432;
         <span class="tooltipText"
           >You can flag samples using Shift + Click.
           <br />
           Then use the console (flaggedSamples) to copy all flagged ids.
         </span>
-      </span>
-    </h1>
+      </span></h1>
+      <!-- <div id="small-scrn-guide">
+        <p>Begin drawing 1 of 8 things: </p>
+        <p>Car, Fish, House, Tree, Bicycle, Guitar, Pencil, or Clock</p>
+      </div> -->
+    </div>
     <div id="inputContainer">
       <div id="predictedLabelContainer"></div>
     </div>
+    
     <div id="chartContainer">
       <div id="confusionContainer"></div>
       <canvas id="networkCanvas"></canvas>
