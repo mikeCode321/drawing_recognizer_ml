@@ -207,6 +207,12 @@ h2{
   #container {
     display: none;
   }
+  body {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
 
   #header-title {
     text-align: center;

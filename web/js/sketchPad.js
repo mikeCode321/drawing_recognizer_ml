@@ -35,6 +35,8 @@ class SketchPad {
   #addEventListeners() {
     this.canvas.onpointerdown = (evt) => {
       const mouse = this.#getMouse(evt);
+      console.log(mouse);
+      console.log(this.paths);
       this.paths.push([mouse]);
       this.isDrawing = true;
       evt.preventDefault();
@@ -55,6 +57,28 @@ class SketchPad {
       this.paths.pop();
       this.#redraw();
     };
+
+    this.canvas.ontouchstart = (evt) => {
+      const mouse = this.#getMouse(evt);
+      this.paths.push([mouse]);
+      this.isDrawing = true;
+      evt.preventDefault();
+    }
+
+    this.canvas.ontouchmove = (evt) => {
+      if (this.isDrawing) {
+        const mouse = this.#getMouse(evt);
+        const lastPath = this.paths[this.paths.length - 1];
+        lastPath.push(mouse);
+        this.#redraw();
+      }
+      evt.preventDefault();
+    };
+
+    document.ontouchend = () => {
+      this.isDrawing = false;
+    };
+
   }
 
   #redraw() {
@@ -75,10 +99,17 @@ class SketchPad {
   }
 
   #getMouse = (evt) => {
-    const rect = this.canvas.getBoundingClientRect();
-    return [
-      Math.round(evt.clientX - rect.left),
-      Math.round(evt.clientY - rect.top),
-    ];
-  };
+  const rect = this.canvas.getBoundingClientRect();
+  let x, y;
+  
+  if (evt.touches) { 
+    x = evt.touches[0].clientX - rect.left;
+    y = evt.touches[0].clientY - rect.top;
+  } else { 
+    x = evt.clientX - rect.left;
+    y = evt.clientY - rect.top;
+  }
+  
+  return [Math.round(x), Math.round(y)];
+};
 }
